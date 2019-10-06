@@ -3,18 +3,32 @@
 
 <head>
     <script lang='javascript'>
-        let h = 25
-        let a = 200;
-        let b = 200;
-        let c = 50;
-        let d = 50;
-        function twoByTwo() {
-         firstThing(a,b,c,d);
-         firstThing(a+c,b,c,d);
-         firstThing(a,b+d,c,d);
-         firstThing(a+c,b+d,c,d);
+        let a = 0;
+        let b = 0;
+        let ctx = null;
+        let blockWidth = 50;
+
+        function initialize() {
+            disableArrowKey();
+            let myCanvas = document.getElementById('tetrisCanvas');
+            ctx = myCanvas.getContext("2d");
+            ctx.fillStyle = 'red'
+            ctx.strokeStyle = 'black';
+            drawIShape(ctx, 0, 0);
         }
-        function noMoving(){
+        function drawIShape(ctx, a, b) {
+            drawBlock(ctx, a, b);
+            drawBlock(ctx, a, b + 1);
+            drawBlock(ctx, a, b + 2);
+            drawBlock(ctx, a, b + 3)
+        }
+        function drawSquareShape(ctx, a, b) {
+            drawBlock(ctx, a, b);
+            drawBlock(ctx, a, b + 1);
+            drawBlock(ctx, a + 1, b);
+            drawBlock(ctx, a + 1, b + 1);
+        }
+        function disableArrowKey() {
             window.addEventListener("keydown", function (e) {
                 // space and arrow keys
                 if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -22,56 +36,38 @@
                 }
             }, false);
         }
-        function firstThing(a, b, c, d) {
-            noMoving()
-            let myCanvas = document.getElementById('tetrisCanvas');
-            let ctx = myCanvas.getContext("2d");
-            //ctx.beginPath();
-            draw(ctx,a,b,c,d);
-        }
         function clearCanvas(ctx) {
-            ctx.clearRect(a - 5, b - 5, c + 100, d + 100);
+            ctx.clearRect(0, 0, 1000, 1000);
         }
-        function draw(ctx,a,b,c,d) {
-            ctx.fillStyle = 'red'
-            ctx.fillRect(a, b, c, d);
-            ctx.strokeStyle = 'black';
-            ctx.strokeRect(a, b, c, d);
+        function drawBlock(ctx, a, b) {
+            ctx.fillRect(a * blockWidth, b * blockWidth, blockWidth, blockWidth);
+            ctx.strokeRect(a * blockWidth, b * blockWidth, blockWidth, blockWidth);
         }
-        function move() {
-            let myCanvas = document.getElementById('tetrisCanvas');
-            let ctx = myCanvas.getContext("2d");
+        function move(functionName) {
             let x = event.keyCode;
             if (x == 37) {
                 clearCanvas(ctx);
-                ctx.fillStyle = 'red';
-                a = a - h;
+                a = a - 1;
             }
             if (x == 39) {
                 clearCanvas(ctx);
-                ctx.fillStyle = 'red';
-                a = a + h;
+                a = a + 1;
             }
             if (x == 38) {
                 clearCanvas(ctx);
-                ctx.fillStyle = 'red';
-                b = b - h;
+                b = b - 1;
             }
             if (x == 40) {
                 clearCanvas(ctx);
-                ctx.fillStyle = 'red';
-                b = b + h;
+                b = b + 1;
             }
-            //draw(ctx,a,b,c,d);
-            twoByTwo()
+            functionName(ctx, a, b);
         }
 
     </script>
 </head>
 
-<body onload='twoByTwo()' onkeydown="move()"
-    
->
+<body onload='initialize()' onkeydown="move(drawIShape)">
     <canvas width='1000' height='1000' id='tetrisCanvas'></canvas>
 </body>
 
