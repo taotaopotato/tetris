@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  
+    <script lang='javascript'>
+        function FirstThing() {
+            let myCanvas = document.getElementById('tetrisCanvas');
+            let ctx = myCanvas.getContext("2d");
+            //ctx.beginPath();
+            ctx.fillStyle = 'red'
+            ctx.fillRect(100, 100, 50, 50);
+            ctx.strokeStyle = 'black';
+            ctx.strokeRect(100, 100, 50, 50);
+        }
+       
+        
+    </script>
 </head>
-<body>
-    
+
+<body onload='FirstThing()' onkeydown="move()">
+    <canvas width='1000' height='1000' id='tetrisCanvas'></canvas>
 </body>
+
 </html>
