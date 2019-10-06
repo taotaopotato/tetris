@@ -28,7 +28,14 @@
                 ctx.strokeStyle = 'black';
                 ctx.strokeRect(a, b, c, d);
             }
-           
+            else if(x==39) {
+                ctx.clearRect(a-5, b-5, c+10, d+10);
+                ctx.fillStyle = 'red'
+                a=a+30
+                ctx.fillRect(a, b, c, d);
+                ctx.strokeStyle = 'black';
+                ctx.strokeRect(a, b, c, d);
+            }
         }
         
     </script>
