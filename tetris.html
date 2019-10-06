@@ -3,7 +3,7 @@
 
 <head>
     <script lang='javascript'>
-
+        let h = 25
         let a = 200;
         let b = 200;
         let c = 50;
@@ -18,6 +18,12 @@
             let myCanvas = document.getElementById('tetrisCanvas');
             let ctx = myCanvas.getContext("2d");
             //ctx.beginPath();
+            duh(ctx);
+        }
+        function clearCanvas(ctx) {
+            ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
+        }
+        function duh(ctx) {
             ctx.fillStyle = 'red'
             ctx.fillRect(a, b, c, d);
             ctx.strokeStyle = 'black';
@@ -28,37 +34,26 @@
             let ctx = myCanvas.getContext("2d");
             let x = event.keyCode;
             if (x == 37) {
-                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
-                ctx.fillStyle = 'red'
-                a = a - 30
-                ctx.fillRect(a, b, c, d);
-                ctx.strokeStyle = 'black';
-                ctx.strokeRect(a, b, c, d);
+                clearCanvas(ctx);
+                ctx.fillStyle = 'red';
+                a = a - h;
             }
             if (x == 39) {
-                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
-                ctx.fillStyle = 'red'
-                a = a + 30
-                ctx.fillRect(a, b, c, d);
-                ctx.strokeStyle = 'black';
-                ctx.strokeRect(a, b, c, d);
+                clearCanvas(ctx);
+                ctx.fillStyle = 'red';
+                a = a + h;
             }
             if (x == 38) {
-                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
-                ctx.fillStyle = 'red'
-                b = b - 30
-                ctx.fillRect(a, b, c, d);
-                ctx.strokeStyle = 'black';
-                ctx.strokeRect(a, b, c, d);
+                clearCanvas(ctx);
+                ctx.fillStyle = 'red';
+                b = b - h;
             }
             if (x == 40) {
-                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
-                ctx.fillStyle = 'red'
-                b = b + 30
-                ctx.fillRect(a, b, c, d);
-                ctx.strokeStyle = 'black';
-                ctx.strokeRect(a, b, c, d);
+                clearCanvas(ctx);
+                ctx.fillStyle = 'red';
+                b = b + h;
             }
+            duh(ctx);
         }
 
     </script>
