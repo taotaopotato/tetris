@@ -3,16 +3,33 @@
 
 <head>
     <script lang='javascript'>
+        let a=200;
+        let b=200;
+        let c=50;
+        let d=50;
         function FirstThing() {
             let myCanvas = document.getElementById('tetrisCanvas');
             let ctx = myCanvas.getContext("2d");
             //ctx.beginPath();
             ctx.fillStyle = 'red'
-            ctx.fillRect(100, 100, 50, 50);
+            ctx.fillRect(a, b, c, d);
             ctx.strokeStyle = 'black';
-            ctx.strokeRect(100, 100, 50, 50);
+            ctx.strokeRect(a, b, c, d);
         }
-       
+        function move() {
+            let myCanvas = document.getElementById('tetrisCanvas');
+            let ctx = myCanvas.getContext("2d");
+            let x = event.keyCode;
+            if(x==37) {
+                ctx.clearRect(a-5, b-5, c+10, d+10);
+                ctx.fillStyle = 'red'
+                a=a-30
+                ctx.fillRect(a, b, c, d);
+                ctx.strokeStyle = 'black';
+                ctx.strokeRect(a, b, c, d);
+            }
+           
+        }
         
     </script>
 </head>
