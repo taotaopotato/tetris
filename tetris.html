@@ -3,11 +3,18 @@
 
 <head>
     <script lang='javascript'>
-        let a=200;
-        let b=200;
-        let c=50;
-        let d=50;
+
+        let a = 200;
+        let b = 200;
+        let c = 50;
+        let d = 50;
         function FirstThing() {
+            window.addEventListener("keydown", function (e) {
+                // space and arrow keys
+                if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                    e.preventDefault();
+                }
+            }, false);
             let myCanvas = document.getElementById('tetrisCanvas');
             let ctx = myCanvas.getContext("2d");
             //ctx.beginPath();
@@ -20,24 +27,40 @@
             let myCanvas = document.getElementById('tetrisCanvas');
             let ctx = myCanvas.getContext("2d");
             let x = event.keyCode;
-            if(x==37) {
-                ctx.clearRect(a-5, b-5, c+10, d+10);
+            if (x == 37) {
+                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
                 ctx.fillStyle = 'red'
-                a=a-30
+                a = a - 30
                 ctx.fillRect(a, b, c, d);
                 ctx.strokeStyle = 'black';
                 ctx.strokeRect(a, b, c, d);
             }
-            else if(x==39) {
-                ctx.clearRect(a-5, b-5, c+10, d+10);
+            if (x == 39) {
+                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
                 ctx.fillStyle = 'red'
-                a=a+30
+                a = a + 30
+                ctx.fillRect(a, b, c, d);
+                ctx.strokeStyle = 'black';
+                ctx.strokeRect(a, b, c, d);
+            }
+            if (x == 38) {
+                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
+                ctx.fillStyle = 'red'
+                b = b - 30
+                ctx.fillRect(a, b, c, d);
+                ctx.strokeStyle = 'black';
+                ctx.strokeRect(a, b, c, d);
+            }
+            if (x == 40) {
+                ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
+                ctx.fillStyle = 'red'
+                b = b + 30
                 ctx.fillRect(a, b, c, d);
                 ctx.strokeStyle = 'black';
                 ctx.strokeRect(a, b, c, d);
             }
         }
-        
+
     </script>
 </head>
 
