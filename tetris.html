@@ -8,22 +8,31 @@
         let b = 200;
         let c = 50;
         let d = 50;
-        function FirstThing() {
+        function twoByTwo() {
+         firstThing(a,b,c,d);
+         firstThing(a+c,b,c,d);
+         firstThing(a,b+d,c,d);
+         firstThing(a+c,b+d,c,d);
+        }
+        function noMoving(){
             window.addEventListener("keydown", function (e) {
                 // space and arrow keys
                 if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
                     e.preventDefault();
                 }
             }, false);
+        }
+        function firstThing(a, b, c, d) {
+            noMoving()
             let myCanvas = document.getElementById('tetrisCanvas');
             let ctx = myCanvas.getContext("2d");
             //ctx.beginPath();
-            duh(ctx);
+            draw(ctx,a,b,c,d);
         }
         function clearCanvas(ctx) {
-            ctx.clearRect(a - 5, b - 5, c + 10, d + 10);
+            ctx.clearRect(a - 5, b - 5, c + 100, d + 100);
         }
-        function duh(ctx) {
+        function draw(ctx,a,b,c,d) {
             ctx.fillStyle = 'red'
             ctx.fillRect(a, b, c, d);
             ctx.strokeStyle = 'black';
@@ -53,13 +62,16 @@
                 ctx.fillStyle = 'red';
                 b = b + h;
             }
-            duh(ctx);
+            //draw(ctx,a,b,c,d);
+            twoByTwo()
         }
 
     </script>
 </head>
 
-<body onload='FirstThing()' onkeydown="move()">
+<body onload='twoByTwo()' onkeydown="move()"
+    
+>
     <canvas width='1000' height='1000' id='tetrisCanvas'></canvas>
 </body>
 
