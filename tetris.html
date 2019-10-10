@@ -7,14 +7,29 @@
         let b = 0;
         let ctx = null;
         let blockWidth = 50;
+        let functionName;
 
-        function initialize() {
+        class Hero {
+            constructor(name, level) {
+                this.name = name;
+                this.level = level;
+            }
+
+            // Adding a method to the constructor
+            greet() {
+                return `${this.name} says hello.`;
+            }
+        }
+
+        function initialize(functionName) {
+            let hero = new Hero("taotao", 2);
+            alert(hero.greet());
             disableArrowKey();
             let myCanvas = document.getElementById('tetrisCanvas');
             ctx = myCanvas.getContext("2d");
             ctx.fillStyle = 'red'
             ctx.strokeStyle = 'black';
-            drawIShape(ctx, 0, 0);
+            functionName(ctx, 0, 0);
         }
         function drawIShape(ctx, a, b) {
             drawBlock(ctx, a, b);
@@ -45,6 +60,11 @@
         }
         function move(functionName) {
             let x = event.keyCode;
+            if (b == 10) {
+                drawSquareShape(ctx, 0, 0);
+                //   initialize(drawIShape);
+                //   move(drawSquareShape);
+            }
             if (x == 37) {
                 clearCanvas(ctx);
                 a = a - 1;
@@ -67,7 +87,7 @@
     </script>
 </head>
 
-<body onload='initialize()' onkeydown="move(drawIShape)">
+<body onload='initialize(drawIShape)' onkeydown="move(drawIShape)">
     <canvas width='1000' height='1000' id='tetrisCanvas'></canvas>
 </body>
 
