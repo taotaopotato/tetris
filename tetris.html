@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html>
-
+    <h1>This Message Discourages The Getting Of Any Score Less Than A 1000001</h1>
+    <h2>Click Here</h2>
+    <h5>(haha, it dosn't work)</h5>
 <head>
     <script lang='javascript'>
-        let a = 0;
-        let b = 0;
         let ctx = null;
-        let blockWidth = 50;
-        let functionName;
+        let ishape = null;
 
-        class Hero {
-            constructor(name, level) {
-                this.name = name;
-                this.level = level;
+        class Block {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.blockWidth = 50;
             }
-
-            // Adding a method to the constructor
-            greet() {
-                return `${this.name} says hello.`;
+            moveLeft() {
+                this.x--;
+            }
+            moveRight() {
+                this.x++;
+            }
+            moveDown() {
+                this.y++;
+            }
+            draw(ctx) {
+                ctx.fillRect(this.x * this.blockWidth, this.y * this.blockWidth, this.blockWidth, this.blockWidth);
+                ctx.strokeRect(this.x * this.blockWidth, this.y * this.blockWidth, this.blockWidth, this.blockWidth);
+            }
+        }
+        
+        class IShape {
+            constructor(x, y) {
+                let block1 = new Block(x, y);
+                let block2 = new Block(x, y + 1);
+                let block3 = new Block(x, y + 2);
+                let block4 = new Block(x, y + 3);
+                this.blocks = [block1, block2, block3, block4];
+            }
+            draw(ctx) {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    this.blocks[i].draw(ctx);
+                }
+            }
+            moveLeft() {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    this.blocks[i].moveLeft();
+                }
+            }
+            moveRight() {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    this.blocks[i].moveRight();
+                }
+            }
+            moveDown() {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    this.blocks[i].moveDown();
+                }
             }
         }
 
-        function initialize(functionName) {
-            let hero = new Hero("taotao", 2);
-            alert(hero.greet());
+        function initializeIShape() {
             disableArrowKey();
-            let myCanvas = document.getElementById('tetrisCanvas');
-            ctx = myCanvas.getContext("2d");
-            ctx.fillStyle = 'red'
+            let tetrisCanvas = document.getElementById('tetrisCanvas');
+            ctx = tetrisCanvas.getContext("2d");
+            ctx.fillStyle = 'red';
             ctx.strokeStyle = 'black';
-            functionName(ctx, 0, 0);
+            ishape = new IShape(5, 0);
+            ishape.draw(ctx);
         }
-        function drawIShape(ctx, a, b) {
-            drawBlock(ctx, a, b);
-            drawBlock(ctx, a, b + 1);
-            drawBlock(ctx, a, b + 2);
-            drawBlock(ctx, a, b + 3)
-        }
-        function drawSquareShape(ctx, a, b) {
-            drawBlock(ctx, a, b);
-            drawBlock(ctx, a, b + 1);
-            drawBlock(ctx, a + 1, b);
-            drawBlock(ctx, a + 1, b + 1);
-        }
+
         function disableArrowKey() {
             window.addEventListener("keydown", function (e) {
                 // space and arrow keys
@@ -51,43 +77,29 @@
                 }
             }, false);
         }
+
         function clearCanvas(ctx) {
             ctx.clearRect(0, 0, 1000, 1000);
         }
-        function drawBlock(ctx, a, b) {
-            ctx.fillRect(a * blockWidth, b * blockWidth, blockWidth, blockWidth);
-            ctx.strokeRect(a * blockWidth, b * blockWidth, blockWidth, blockWidth);
-        }
-        function move(functionName) {
+
+        function moveShape() {
             let x = event.keyCode;
-            if (b == 10) {
-                drawSquareShape(ctx, 0, 0);
-                //   initialize(drawIShape);
-                //   move(drawSquareShape);
-            }
             if (x == 37) {
-                clearCanvas(ctx);
-                a = a - 1;
+                ishape.moveLeft();
             }
             if (x == 39) {
-                clearCanvas(ctx);
-                a = a + 1;
-            }
-            if (x == 38) {
-                clearCanvas(ctx);
-                b = b - 1;
+                ishape.moveRight();
             }
             if (x == 40) {
-                clearCanvas(ctx);
-                b = b + 1;
+                ishape.moveDown();
             }
-            functionName(ctx, a, b);
+            clearCanvas(ctx);
+            ishape.draw(ctx);
         }
-
     </script>
 </head>
 
-<body onload='initialize(drawIShape)' onkeydown="move(drawIShape)">
+<body onload='initializeIShape()' onkeydown="moveShape()">
     <canvas width='1000' height='1000' id='tetrisCanvas'></canvas>
 </body>
 
